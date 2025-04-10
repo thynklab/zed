@@ -1,0 +1,40 @@
+name: Zed Windows Build
+
+on:
+  push:
+    branches:
+      - main  # Or your main branch
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          # (See instructions in the Zed documentation for specific dependencies)
+          # Install rustup, Visual Studio build tools, Windows SDK, etc.
+          # Example (replace with actual commands):
+          powershell -Command ".\script\build-zed.ps1"  # Assuming you have a build script
+
+      - name: Build Zed
+        run: |
+          # Run the build command here, e.g., using a script or directly
+          # Example:
+          powershell -Command ".\script\build-zed.ps1"  # Or your build command
+
+      - name: Package Zed
+        run: |
+          # (Optional) Package the built Zed for distribution
+          # Example:
+          # powershell -Command ".\script\package-zed.ps1"
+
+      - name: Upload Artifact (Optional)
+        uses: actions/upload-artifact@v3
+        with:
+          name: zed-windows-build
+          path: ./build # Replace with your build directory
